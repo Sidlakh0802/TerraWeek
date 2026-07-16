@@ -89,4 +89,56 @@ This is used to provide output of the current state or specific plan file.
 
 ---
 # Learning - If you do state rm it will delete the resource only form state file but in aws it will exist now you need to delete it manually or you need to import
+
 # Task 3
+
+We created 4 files in Backend.
+
+## 1. `variables.tf`
+
+- This file contains all the variables like AWS region for bucket and name for bucket.
+
+---
+
+## 2. `terraform.tf`
+
+- This file contains configuration of Terraform as well as configuration of AWS.
+
+---
+
+## 3. `resource.tf`
+
+In this file the main configuration is there.
+
+1. Bucket is the state or the name of the bucket.
+
+2. Versioning is enabled with:
+
+```hcl
+
+versioning_configuration {
+  status = "Enabled"
+}
+```
+
+> Versioning is important to recover the state file if by any chance someone accidentally corrupts it.
+
+3. Add the configuration to convert text files into lock file.
+
+```hcl
+apply_server_side_encryption_by_default {
+  sse_algorithm = "AES256"
+}
+```
+
+4. Block all the public access for security.
+
+## 4. `output.tf`
+
+- State bucket name
+- ARN of the state bucket
+
+- <img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/8be34ea9-55a1-49fa-b999-f81b37c7bdc3" />
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/0a703550-3922-43d6-9aac-bc4c8d05a531" />
+
+
