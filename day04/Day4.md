@@ -88,5 +88,5 @@ This is used to provide output of the current state or specific plan file.
 <img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/65b07d77-a165-4e7d-a1d6-037a6f7f7dbf" />
 
 ---
-
+# Learning - If you do state rm it will delete the resource only form state file but in aws it will exist now you need to delete it manually or you need to import
 # Task 3
