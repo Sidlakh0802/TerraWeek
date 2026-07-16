@@ -469,7 +469,86 @@ By implementing `for_each`, I was able to provision multiple EC2 instances witho
 
 
 
+
 ---
+
+# 🌐 Using a Terraform Registry Module
+
+In addition to creating my own reusable EC2 module, I also worked with an **official Terraform Registry Module** to provision an AWS VPC.
+
+Instead of writing the VPC resources from scratch, I used the community-maintained AWS VPC module available on the Terraform Registry. This helped me understand how production-ready modules can be integrated into a Terraform project to simplify infrastructure provisioning.
+
+The module was configured using input values defined in the project, while reusable values were managed through the `locals.tf` file to keep the configuration clean and easy to maintain.
+
+---
+
+## 📦 Registry Module Implementation
+
+The VPC was created using the official AWS VPC module from the Terraform Registry.
+
+```hcl
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "<module-version>"
+
+  ...
+}
+```
+
+The required inputs were passed to the module, while commonly used values were managed through **`locals.tf`**.
+
+---
+
+## 📂 Using `locals.tf`
+
+To avoid repeating values throughout the configuration, I defined reusable local values inside the `locals.tf` file.
+
+These local values were then referenced while configuring the VPC module, making the Terraform code cleaner, more readable, and easier to maintain.
+
+Using locals also made it easier to update commonly used values from a single location instead of modifying them in multiple files.
+
+---
+
+## ✅ What I Implemented
+
+During this task, I:
+
+* Used the official **Terraform Registry AWS VPC Module** to provision a Virtual Private Cloud.
+* Passed the required input variables to the registry module.
+* Managed reusable configuration values using the `locals.tf` file.
+* Referenced local values while configuring the module instead of hardcoding values.
+* Learned how official registry modules simplify infrastructure deployment and promote best practices.
+* Improved the overall project structure by combining custom modules with community-maintained Terraform modules.
+
+---
+
+### Also update your **Key Learnings** by adding these points:
+
+* Learned how to use official modules from the **Terraform Registry**.
+* Provisioned an AWS VPC using the community-maintained AWS VPC module.
+* Used `locals.tf` to store reusable values and improve code readability.
+* Passed local values as inputs to the registry module instead of hardcoding configuration.
+
+---
+
+### Add these to **Things I Noticed**
+
+* Official Terraform Registry modules save significant development time by providing well-tested, reusable infrastructure components.
+* Using `locals.tf` keeps commonly used values centralized, making the configuration easier to maintain and update.
+* Combining custom modules with registry modules results in a cleaner, more scalable Terraform project.
+
+---
+
+### Add these to **Key Takeaways**
+
+* **Terraform Registry modules provide production-ready infrastructure components that reduce development effort.**
+* **Using `locals.tf` improves code readability and eliminates repetitive values.**
+* **A combination of custom modules, registry modules, and local values leads to a modular, maintainable, and scalable Infrastructure as Code project.**
+
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/7ba23b16-da3f-4e72-915e-9c422e7e5f1c" />
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/70edad6b-3f90-4a64-b136-6342dde0a50c" />
+
+
 
 # 📚 Key Learnings
 
