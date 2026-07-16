@@ -142,3 +142,62 @@ apply_server_side_encryption_by_default {
 <img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/0a703550-3922-43d6-9aac-bc4c8d05a531" />
 
 
+# Task 4
+
+Finally configuring the remote Backend.
+
+Created the two files:
+
+1. `resource.tf`
+2. `terraform.tf`
+
+## In `terraform.tf`
+
+Configured the S3 backend:
+
+```hcl
+backend "s3" {
+  bucket       = "name of the bucket"
+  key          = "the tfstate file path"
+  region       = "region where bucket was created"
+  encrypt      = true
+  use_lockfile = true
+}
+```
+
+### Backend Configuration
+
+- **bucket** = Name of the S3 bucket.
+- **key** = Path where the Terraform state file (`terraform.tfstate`) is present.
+- **region** = AWS region in which the S3 bucket was created.
+- **encrypt** = `true`
+- **use_lockfile** = `true`
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/e7be89ef-1ac3-4ce0-ac9b-faf7b5d10d8e" />
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/23218d3f-02f7-45dd-a2c7-e6873e3f6a78" />
+
+Task 5: Import Command
+
+The Import Command is used to bring an existing infrastructure resource under Terraform management so that Terraform can manage it.
+
+Import Block
+
+import {
+  to = aws_s3_bucket.imported
+  id = "bucket-name"
+}
+
+* to → Terraform resource address where the imported resource will be mapped.
+* id → Existing resource identifier (for an S3 bucket, this is the bucket name).
+
+Note
+
+Earlier, we had to manually write the resource block to retrieve all the resource information. Now, Terraform can automatically generate the configuration.
+
+terraform plan -generate-config-out=generated.tf
+
+This command generates a Terraform configuration file (generated.tf) for the imported resource, making it easier to start managing existing infrastructure with Terraform.
+
+⸻
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/8a81d862-e126-4875-8cfe-12362567df42" />
+
+
