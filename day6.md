@@ -22,6 +22,7 @@ terraform workspace list
 ```
 
 This command displays all the available Terraform workspaces.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/026dd3e1-2e69-4919-b889-b0d349648d9f" />
 
 ---
 
@@ -32,6 +33,7 @@ terraform workspace new staging
 ```
 
 This command creates a new workspace named **staging**.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/50f58ed9-13a1-41a6-aa63-74b10332d6f2" />
 
 ---
 
@@ -42,6 +44,7 @@ terraform workspace select staging
 ```
 
 This command switches Terraform to the **staging** workspace.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/d4aaac41-a601-46f4-b7d3-35c43abfe0a7" />
 
 ---
 
@@ -52,6 +55,7 @@ terraform workspace show
 ```
 
 This command displays the currently active Terraform workspace.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/d5b925d1-0872-43bd-ba28-6165125d0829" />
 
 ---
 
@@ -66,6 +70,8 @@ locals {
   instance_type = terraform.workspace == "prod" ? "t3.micro" : "t3.small"
 }
 ```
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/21549416-c8e0-4efa-9ac2-409638542270" />
+
 
 ### Explanation
 
@@ -82,8 +88,10 @@ t3.micro
 ```text
 t3.small
 ```
-
+I also added count function to multiplicate instances based on condition of workspace 
 This allows different environments to have different resource configurations while using the same Terraform code.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/b02ad386-68f3-40b6-8da4-9a86e3554468" />
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/d272a126-1fa9-402c-a37a-ac38e6d7ecd9" />
 
 ---
 
