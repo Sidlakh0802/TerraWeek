@@ -308,5 +308,109 @@ terraform test
 ```
 
 These commands ensure that the Terraform configuration is properly formatted, syntactically valid, and behaves as expected before deployment.
-````
 
+Security Scanning with Trivy
+
+Security scanning is an essential step in Infrastructure as Code (IaC). During this project, **Trivy** was used to scan the Terraform configuration and identify security risks before deployment.
+
+## Scan Results
+
+The initial scan detected **11 security issues**, including **1 Critical** vulnerability.
+
+Instead of attempting to resolve every issue at once, the focus was shifted towards fixing the **Critical** issue first, following a risk-based remediation approach.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/24cb3973-0c9f-49eb-8c9b-ff01ee36381b" />
+
+---
+
+## Why Were These Security Issues Detected?
+
+The scan highlighted the following major findings:
+
+### 1. Default VPC Usage
+
+The infrastructure was deployed using the **AWS Default VPC**.
+
+Since the default VPC comes with several predefined configurations, security scanners often flag it because it may not follow security best practices.
+
+---
+
+### 2. Open Egress Security Group Rule
+
+The Security Group allowed **outbound (egress) traffic to every IP address and every port**.
+
+This creates a potential security risk because workloads can communicate with any external destination.
+
+---
+
+### 3. Root Block Device Configuration
+
+The EC2 instance **Root Block Device** (storage configuration) was not explicitly defined.
+
+Security tools recommend defining storage configuration manually to enforce encryption, volume size, deletion behavior, and other security settings.
+
+---
+
+## For this task we took severity as critical and ran 
+
+
+```bash
+trivy config --severity CRITICAL .
+```
+
+This command analyzes the Terraform files and reports configuration Critical security issues before infrastructure is deployed.
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/b9744145-ac62-47bf-b9cc-d83ed8efd804" />
+
+Then we worked on the critical issues and fixed the code 
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/75375128-ac3a-40e0-a5e7-200aa3533b1b" />
+
+# Infrastructure Cost Estimation with Infracost
+
+**Infracost** is a cost estimation tool that predicts the expected cloud cost of Terraform infrastructure **before deployment**.
+
+It helps developers understand the financial impact of infrastructure changes during the planning stage.
+
+---
+
+## How It Works
+
+### Step 1 – Generate a Terraform Plan
+
+Generate a Terraform execution plan and save it as a binary file.
+
+```bash
+terraform plan -out=tfplan.binary
+```
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/c42bae82-ed31-407a-baf1-c9955d56541f" />
+
+---
+
+### Step 2 – Convert the Plan into JSON
+
+Convert the binary Terraform plan into a readable JSON file.
+
+```bash
+terraform show -json tfplan.binary > plan.json
+```
+<img width="3420" height="2214" alt="image" src="https://github.com/user-attachments/assets/7b242790-efdd-4bdd-befd-487c4ad3bb7d" />
+
+---
+
+### Step 3 – Run Infracost
+
+Run Infracost against the generated JSON plan to estimate infrastructure costs.
+
+```bash
+infracost breakdown --path plan.json
+```
+
+This command analyzes the Terraform plan and provides a detailed cost estimate before any infrastructure is created.
+
+---
+
+## Benefits of Infracost
+
+- Estimate cloud costs before deployment.
+- Detect unexpected cost increases early.
+- Improve infrastructure budgeting.
+- Integrate cost estimation into CI/CD pipelines.
+- Make cost-aware infrastructure decisions before provisioning resources.
